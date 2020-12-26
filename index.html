@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+
+  <title>Controller</title>
+  </head>
+  <body>
+    <h1>Controller</h1>
+
+    <button onclick="reload()">Reload visual</button>
+
+    <h2>Divs number : <span id='divs_value'> ? </span> <h2>
+    <button onclick="moreDivs()">More divs</button>
+    <button onclick="lessDivs()">Less divs</button>
+
+    <h2>Global rotation : <span id='global_rotation_value'> ? </span> <h2>
+    <button onclick="moreG_rotation()"> + </button>
+    <button onclick="lessG_rotation()"> - </button>
+
+    <h2>Blur effect : <span id='blur_effect_value'> ? </span> <h2>
+    <button onclick="moreBlur()"> + </button>
+    <button onclick="lessBlur()"> - </button>
+
+    <h2>Global breath effect : <span id='breath_effect_value'> ? </span> <h2>
+    <button onclick="moreBreath()"> + </button>
+    <button onclick="lessBreath()"> - </button>
+
+    <h2>Shapes speed : <span id='speed_value'> 0 </span> <h2>
+    <button onclick="moreSpeed()"> + </button>
+    <button onclick="lessSpeed()"> - </button>
+
+    <h2>Shapes rotation : <span id='shape_rotation_value'> ? </span> <h2>
+    <button onclick="moreS_rotation()"> + </button>
+    <button onclick="lessS_rotation()"> - </button>
+
+    <h2>Shapes drunk direction : <span id='shape_drunk_value'> ? </span> <h2>
+    <button onclick="moreDrunk()"> + </button>
+    <button onclick="lessDrunk()"> - </button>
+
+    <script src="/js/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/js/node_modules/socket.io/client-dist/socket.io.js"></script>
+  </body>
+</html>
+
+<script>
+
+  var socket = io.connect('http://localhost:4200');
+
+  socket.on('connect', function(data) {
+    console.log('In Join global');
+  });
+
+  function reload() {
+    console.log('In more speed');
+    send_data = {
+      type: 'reload',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function moreDivs() {
+    console.log('In more divs');
+    send_data = {
+      type: 'd+',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function lessDivs() {
+    console.log('In less divs');
+    send_data = {
+      type: 'd-',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function moreSpeed() {
+    console.log('In more speed');
+    send_data = {
+      type: 's+',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function lessSpeed() {
+    console.log('In less speed');
+    send_data = {
+      type: 's-',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function moreG_rotation() {
+    console.log('In more g rotation');
+    send_data = {
+      type: 'g_r+',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function lessG_rotation() {
+    console.log('In less g rotation');
+    send_data = {
+      type: 'g_r-',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function moreS_rotation() {
+    console.log('In more s rotation');
+    send_data = {
+      type: 's_r+',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function lessS_rotation() {
+    console.log('In less s rotation');
+    send_data = {
+      type: 's_r-',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function moreBreath() {
+    console.log('In more breath');
+    send_data = {
+      type: 'b+',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function lessBreath() {
+    console.log('In less breath');
+    send_data = {
+      type: 'b-',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function moreDrunk() {
+    console.log('In more drunk');
+    send_data = {
+      type: 'drunk+',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function lessDrunk() {
+    console.log('In less drunk');
+    send_data = {
+      type: 'drunk-',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function moreBlur() {
+    console.log('In more blur');
+    send_data = {
+      type: 'blur+',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  function lessBlur() {
+    console.log('In less blur');
+    send_data = {
+      type: 'blur-',
+      value: null,
+    }
+    socket.emit('join', send_data);
+  }
+
+  socket.on('messages', function(data) {
+    console.log('In messages : '+JSON.stringify(data, null, 2));
+    switch (data.type) {
+      case 's+':
+        console.log('In s+');
+        document.getElementById('speed_value').innerHTML = data.value;
+        break;
+      case 's-':
+        console.log('In s+');
+        document.getElementById('speed_value').innerHTML = data.value;
+        break;
+
+      case 'd':
+        document.getElementById('divs_value').innerHTML = data.value;
+        break;
+      case 'd+':
+        document.getElementById('divs_value').innerHTML = data.value;
+        break;
+      case 'd-':
+        document.getElementById('divs_value').innerHTML = data.value;
+        break;
+
+      case 'g_r+':
+        document.getElementById('global_rotation_value').innerHTML = data.value;
+        break;
+      case 'g_r-':
+        document.getElementById('global_rotation_value').innerHTML = data.value;
+        break;
+
+      case 's_r+':
+        document.getElementById('shape_rotation_value').innerHTML = data.value;
+        break;
+      case 's_r-':
+        document.getElementById('shape_rotation_value').innerHTML = data.value;
+        break;
+
+      case 'b+':
+        document.getElementById('breath_effect_value').innerHTML = data.value;
+        break;
+      case 'b-':
+        document.getElementById('breath_effect_value').innerHTML = data.value;
+        break;
+
+      case 'drunk+':
+        document.getElementById('shape_drunk_value').innerHTML = data.value;
+        break;
+      case 'drunk-':
+        document.getElementById('shape_drunk_value').innerHTML = data.value;
+        break;
+
+      case 'blur+':
+        document.getElementById('blur_effect_value').innerHTML = data.value;
+        break;
+      case 'blur-':
+        document.getElementById('blur_effect_value').innerHTML = data.value;
+        break;
+
+      default:
+
+    }
+  });
+
+</script>
